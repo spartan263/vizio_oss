@@ -1,0 +1,131 @@
+1.5.3
+-----
+
+Stereo
+- Add stereoscopic display support including stereo windows and/or stereo depth.
+
+
+1.4.14
+------
+
+ISaWManManager
+- When changing association, reset to default geometry (non-follow) if parent is not found.
+- Implement SWMCF_ASSOCIATION and SWMCF_STACKING in SetWindowConfig().
+
+Secure Fusion
+- Add SaWManManager flux to implement the public ISaWManManager interface for the application manager
+  which could be a slave process without write access to the SaWMan structures. This includes
+  QueueUpdate(), ProcessUpdates(), CloseWindow(), InsertWindow(), RemoveWindow(), SwitchFocus(),
+  SetScalingMode(), SetWindowConfig(). At the moment all calls are asynchronous because of a very
+  difficult to solve issue, that is when an application calls into the master to move a window, the
+  master calls into the application manager, but that in turn calls into the master again now. This
+  would block as the Fusion Dispatch thread is blocking on the call to the application manager and
+  cannot process the call from the application manager.
+- Add SaWManProcess flux including SetExiting() and RegisterManager().
+- Add permission management to throw functions.
+- Add SaWManWindow as an object that can be looked up, thrown, caught...
+- Change manager call to use FusionCall v3 copying back and forth the data instead of using
+  a shared memory pointer.
+
+Repaint
+- Fix crash when multiple regions are repainted due to cursor rendering, thanks to Frank Chou!
+
+Cursor
+- Switch between cursor and window context when using hardware cursor.
+
+Debian
+- Add package for SaWMan.
+
+
+1.4.11
+------
+
+Module
+- Removed lock, using layer context lock instead.
+
+Build
+- fixed build with changes in DirectFB's config structure
+
+
+1.4.10
+------
+
+Build
+- fixed DIRECTFB_BUILD_PURE_VOODOO checks, thanks to Lionel Landwerlin
+
+
+1.4.8
+-----
+
+API | ISaWMan
+- Add GetUpdates() which returns updates done on screen (blocking until updated since last call).
+
+Runtime Options
+- Enable support for remote session via Voodoo (when remote option is set).
+- Add option "resolution=<width>x<height>" to set a virtual SaWMan resolution, e.g. to be used
+  across all input devices (absolute positioning on screen, or unified relative motion/sensitivity).
+  Default resolution is either "mode" option from DirectFB if set or queried on first screen.
+- Add option "hw-cursor=<layer-id>" to use a hardware layer for the cursor shape.
+
+Implementation
+- Implement new cursor APIs of DirectFB.
+- Implement sending DWET_UPDATE events.
+- Different fixes and minor enhancements.
+
+
+1.4.5
+-----
+
+    sawman: flipping enhancements
+    - implements DSFLIP_QUEUE/FLUSH
+    - new update scheme for double and triple buffering
+
+
+1.4.4
+-----
+
+    config: update SaWMan help message
+    config: fix command line parsing
+    testman: call SaWManInit()
+    ISaWManManager: layer reconfig -> now also when going from single
+    sawman: window composition: alpha blending fix
+    sawman: support for DWOP_INPUTONLY
+    cursor: fix cursor appearance bug
+    flip-once: Implemented configurable timeout via "flip-once-timeout" option.
+    flip-once: Added debug messages.
+
+
+1.4.3
+-----
+
+Requires at least DirectFB 1.2.10 or DirectFB 1.4.3.
+Only 1.2 and 1.4 branches are supported.
+
+The following features have been added since 1.4.2:
+
+- support for DIEF_REPEAT, so key repeat can be observed
+- implement IDirectFBSurface::BeginUpdates() and DSFLIP_ONCE.
+- add automatic usage of BatchBlit2 in window composition
+- optimized stack updates for premultiplied alpha windows (use copy at bottom)
+- several fixes:
+    - Added a hack to avoid dead locks: have skirmishes refer to a single lock.
+    - key selection: fix for bad flag handling.
+    - colorize: now updating properly.
+    - keygrabbing: fix for ungrab UNSELECTED KEYS
+- files were reorganised to better reflect their contents.
+  1.4.2 patches most likely need manual intervention.
+
+1.4.2
+-----
+
+Requires at least DirectFB 1.2.9 or DirectFB 1.4.2.
+Only 1.2 and 1.4 branches are supported.
+
+The following features have been added since 1.4.1:
+
+- allow the window config value "color" to colorize the window
+- add application_id to SaWMan, and app ID changed callback
+- fix to make SendWindowEvent() work
+- implement missing SWMCF_... in ISaWManManager::SetWindowConfig(),
+    except KEY_SELECTION, ASSOCIATION and CWCF_STACKING
+

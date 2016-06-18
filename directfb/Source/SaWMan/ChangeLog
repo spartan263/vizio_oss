@@ -1,0 +1,1418 @@
+commit 61536a7be6d284eb37f6a366b8e5e265f66f9059
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Aug 7 12:27:25 2011 +0200
+
+    Stereo: Add stereoscopic display support including stereo windows and/or stereo depth.
+
+commit d37d14c88050267cbe4ed9775a53c76632ded8cb
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Aug 7 12:27:14 2011 +0200
+
+    version: 1.5.3
+
+commit 21cb1f960bef4e91bcbbef3790692b4948d99924
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 23:54:48 2011 +0200
+
+    version: 1.5.2
+
+commit a1c1f2e488c8ad10c88db9c6d027aa5bdada5439
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 21:26:02 2011 +0200
+
+    update NEWS/ChangeLog for 1.4.14 release
+
+commit 31e365e867482f47821d8daee5ccc4d843d70387
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 21:25:29 2011 +0200
+
+    Makefile: Remove generated files at distclean-local
+
+commit de4cbe2edf2f79c907a557316ce359f2486933b3
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 21:08:48 2011 +0200
+
+    version: Go back to 1.4.14, only call it 1.5.x again when stereo is integrated.
+
+commit 19917616c49e3f6b7382c9a6cb2ad65aec70540b
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 16:57:58 2011 +0200
+
+    version: 1.5.2
+
+commit c8699948e03d67241420b7db5110570ed1dde380
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Jul 31 16:57:24 2011 +0200
+
+    SecureFusion: Final major step to get SaWMan working with secure fusion
+    
+    Add SaWManManager flux to implement the public ISaWManManager interface for the application manager
+    which could be a slave process without write access to the SaWMan structures. This includes
+    QueueUpdate(), ProcessUpdates(), CloseWindow(), InsertWindow(), RemoveWindow(), SwitchFocus(),
+    SetScalingMode(), SetWindowConfig(). At the moment all calls are asynchronous because of a very
+    difficult to solve issue, that is when an application calls into the master to move a window, the
+    master calls into the application manager, but that in turn calls into the master again now. This
+    would block as the Fusion Dispatch thread is blocking on the call to the application manager and
+    cannot process the call from the application manager.
+    
+    Add SaWManProcess flux including SetExiting() and RegisterManager().
+    
+    Add permission management to throw functions.
+    
+    Add SaWManWindow as an object that can be looked up, thrown, caught...
+    
+    Change manager call to use FusionCall v3 copying back and forth the data instead of using
+    a shared memory pointer.
+
+commit c1765017191045e6601ecabc193a84e3a93dd550
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Thu Jul 28 22:24:21 2011 +0200
+
+    configure: depend on 1.4.14 from now on, for all the flux etc.
+
+commit 102ba008bb35bf4e60ed5a05655c1ae9017a5b88
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Thu Jul 28 22:20:05 2011 +0200
+
+    version 1.5.0
+
+commit 5ecd14d2f7ed5a3825cf5cebfcc3652c07fe43b3
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Thu Jul 21 01:57:30 2011 +0200
+
+    SaWMan: Add flux for process registration.
+
+commit 4bad6cb5a5480b252eaf0f80bfe747dacf5420f1
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Jul 13 22:40:39 2011 +0100
+
+    ISaWManManager: When changing association, reset to default geometry (non-follow) if parent is not found.
+
+commit cfacdf9d5ae98b3442f92ddfee48977e360d09ee
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Jul 13 22:23:23 2011 +0100
+
+    Repaint: Fix crash when multiple regions are repainted due to cursor rendering, thanks to Frank Chou!
+
+commit 2d2c57756e4724dd310826a57f424b0aae7581ec
+Author: Andreas Shimokawa <andi@directfb.org>
+Date:   Tue Mar 29 16:02:35 2011 +0200
+
+    debian: typo :(
+
+commit 26a5d7f20d672c8155b77d2c6d73a6df4d7495b6
+Author: Andreas Shimokawa <andi@directfb.org>
+Date:   Tue Mar 29 15:50:07 2011 +0200
+
+    debian: added Provides field to sawman wm
+
+commit 21ca0bc87c654cf8ad75c967bf6259958cbb9df1
+Author: Andreas Shimokawa <andi@directfb.org>
+Date:   Tue Mar 29 15:46:11 2011 +0200
+
+    debian: package sawman
+
+commit 233aa4aaf8ce723ec3e2ef5c4bc08da87f8f6675
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Fri Mar 25 23:39:52 2011 +0100
+
+    cursor: Fix HW cursor bugs.
+
+commit e31fc91cd22e3d7eb81872627cc59d5d71dd5c82
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Fri Mar 25 17:12:43 2011 +0100
+
+    hwcursor: Switch between cursor and window context when using hardware cursor.
+
+commit 41d795e9548c2da0b74813d67fc08b34157b530b
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Fri Mar 25 16:15:14 2011 +0100
+
+    debug: Add more info when stacking class is invalid.
+
+commit c50f4c6f0463178c457de4725d34fdeea94705ea
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Mar 16 17:08:31 2011 +0100
+
+    wm: Make it build with 1.5.0 or greater.
+
+commit 4ab99bf560345c1c9e4cb6e65c3c392ae1a22fe6
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Mar 16 17:06:29 2011 +0100
+
+    internal: Use version code macros to check for 1.4.
+
+commit eac7c969f1c9f6b385d81ccad5e012ddd45a6e33
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Thu Feb 10 14:30:46 2011 +0100
+
+    sawman: Implement SWMCF_ASSOCIATION and SWMCF_STACKING in SetWindowConfig().
+
+commit 448b4b57096c0c4f92488627bce73b36ef704421
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Thu Feb 10 14:29:29 2011 +0100
+
+    sawman: Fixup extended info in window callback during CreateManager() for already created windows.
+
+commit 89e06c3a2aafc79a1ff9f67c9bf4b9e7b00742a3
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Jan 19 13:54:40 2011 +0100
+
+    sawman: fix crash in debug mode
+
+commit 5df19bcd19e325d28035d6ba190d4df4b5760076
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Nov 21 21:23:49 2010 +0100
+
+    release 1.4.11
+
+commit 43bc6655008f9d91eb66d5904b2ed385b240cd9e
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Nov 21 21:21:26 2010 +0100
+
+    remove sawman lock, use layer context lock, fix build
+
+commit c1f0a7625787bc2cf4f69afd3469aa0cc4e3ebb7
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Nov 3 13:10:07 2010 +0100
+
+    release 1.4.10
+
+commit 5894638016e5164140b1ecd17e86ce149cc6247f
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Nov 3 13:08:58 2010 +0100
+
+    build: fixed DIRECTFB_BUILD_PURE_VOODOO checks, thanks to Lionel Landwerlin
+
+commit d2f20625e9c72fd570f54eb863796a61a56710de
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Wed Nov 3 13:08:52 2010 +0100
+
+    bumped to 1.4.10
+
+commit cf0d76da17513e3f8498294b861f073094b60876
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Mon Nov 1 11:03:56 2010 +0100
+
+    release 1.4.8
+
+commit 5ff7f688636f92ae6e456fe2dcafd38f37750f4a
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Mon Nov 1 11:06:27 2010 +0100
+
+    changed DIRECTFB_PURE_VOODOO to DIRECTFB_BUILD_PURE_VOODOO
+
+commit 1b31563674e0c4971e58a6df32214f4681965a4c
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Mon Nov 1 11:01:48 2010 +0100
+
+    Add ISaWMan::GetUpdates() which returns updates done on screen (blocking until updated since last call).
+    
+    Enable support for remote session via Voodoo (when remote option is set).
+    
+    Add option "resolution=<width>x<height>" to set a virtual SaWMan resolution, e.g. to be used
+    across all input devices (absolute positioning on screen, or unified relative motion/sensitivity).
+    Default resolution is either "mode" option from DirectFB if set or queried on first screen.
+    
+    Add option "hw-cursor=<layer-id>" to use a hardware layer for the cursor shape.
+    
+    Implement new cursor APIs of DirectFB.
+    
+    Implement sending DWET_UPDATE events.
+    
+    Different fixes and minor enhancements.
+
+commit 3f28753173adb91fde6367ba1b76c1d0861caeb2
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Sun Oct 31 12:29:03 2010 +0100
+
+    bumped version to 1.4.8
+
+commit 4012628a35c3e59d47a8177eda63bc42b3acd219
+Author: Denis Oliver Kropp <dok@localhost.(none)>
+Date:   Thu Aug 19 00:39:57 2010 +0200
+
+    release 1.4.5
+
+commit 3d7d7815f1cb76f55cdadf8b9c0363af6af658ef
+Author: Denis Oliver Kropp <dok@localhost.(none)>
+Date:   Thu Aug 19 00:39:05 2010 +0200
+
+    sawman: flipping enhancements
+    - implements DSFLIP_QUEUE/FLUSH
+    - new update scheme for double and triple buffering
+
+commit 46ed698c0195d192b90dc1899762a0bdbf7fb08a
+Author: Denis Oliver Kropp <dok@localhost.(none)>
+Date:   Thu Aug 19 00:38:37 2010 +0200
+
+    version 1.4.5
+
+commit c942418a763a1a5e161c55c8bcaaf65e5c5118cf
+Author: Denis Oliver Kropp <dok@localhost.(none)>
+Date:   Wed Aug 18 11:33:37 2010 +0200
+
+    release 1.4.4
+
+commit 35a2a1a679704919d05a6d7a9313ba5e3606eac4
+Author: Niels Roest <niels@directfb.org>
+Date:   Sun Jun 27 23:44:40 2010 +0400
+
+    reverted 401f5fec02bcd6179c5e70e9b438836a02a49b45
+    
+    removed the ugly hack that copies locks.
+    This should work now, given the patches provided by Timothy.
+    Not seen any locks so far here..
+
+commit 4f5aaee435e843f2ffc5c1c3cdfec9c248dc56dc
+Merge: d3474d5 cf60493
+Author: Niels Roest <niels@directfb.org>
+Date:   Sun Jun 27 23:21:40 2010 +0400
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit cf604933c1ee264f2b8a469d2efe457957a3c4f5
+Author: André Draszik <andre.draszik@st.com>
+Date:   Fri Apr 16 15:05:09 2010 +0100
+
+    config: update SaWMan help message
+
+commit a73daf2c41cb01f92f0deb22c5d54d9d40b6af95
+Author: André Draszik <andre.draszik@st.com>
+Date:   Fri Apr 16 15:31:39 2010 +0100
+
+    config: fix command line parsing
+
+commit 24531d14b2bb5ccbbdaba6bd9954831b6116a216
+Author: André Draszik <andre.draszik@st.com>
+Date:   Fri Apr 16 15:04:40 2010 +0100
+
+    testman: call SaWManInit()
+
+commit d3474d5d31d70cdf4c8768c8a8618a3702f2cec0
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Feb 5 18:28:05 2010 +0100
+
+    ISaWManManager: layer reconfig -> now also when going from single
+    
+    The callback SaWManCallbacks::LayerReconfig used to be only
+    triggered when SaWMan wanted to reconfigure towards single mode
+    (when only one window was visible). Now the callback is also
+    triggered when leaving single, or when changing config for any cause,
+    thus allowing the SaWMan manager to overrule the settings.
+
+commit 9dd19ef38313a341ae67f75d484ce69a1925d487
+Merge: ed69309 d8af0fb
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jan 14 21:05:35 2010 +0100
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit ed69309457382d52874c4c8f28b06396371c573d
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jan 14 21:02:07 2010 +0100
+
+    window composition: alpha blending fix
+    
+    fix for blending:
+    windows with RGB (so no alpha channel) and opacity != 255
+
+commit 185c2b1e9e6fc77413a9881bf2d8fb05b2ed9989
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jan 14 21:00:22 2010 +0100
+
+    support for DWOP_INPUTONLY
+    
+    IDirectFBWindow::SetOption has a new option,
+    this patch implements it in SaWMan.
+    
+    also fix in sawman_draw_two_windows fallback border drawing
+
+commit 199a941010cd535e8b31239d634c067350eb28c7
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jan 14 20:53:14 2010 +0100
+
+    cursor: fix cursor appearance bug
+    
+    the cursor should be redrawn when an update window WM call is received.
+    add "surface" to sawman_draw_cursor to limit extra code.
+
+commit d8af0fbfba371ebd14c5456752e681b9fc296304
+Merge: 331395a 123c528
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Dec 10 14:11:24 2009 +0100
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit 331395acf6d6f58b9658e06d694413a504a4ce84
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Dec 10 14:10:36 2009 +0100
+
+    flip-once: Implemented configurable timeout via "flip-once-timeout" option.
+
+commit 94bf84603e9325662f3ea95315e8223d62286ed9
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Dec 10 13:40:35 2009 +0100
+
+    flip-once: Added debug messages.
+
+commit 123c5286de026dbacf09818f795698a70e06330d
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Dec 8 21:22:47 2009 +0100
+
+    release: SaWMan 1.4.3
+
+commit e6929a1a9eddf00ec947d9a6c6549aff7c4cd850
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Dec 8 21:12:16 2009 +0100
+
+    compatibility: compiles with DirectFB 1.2.10 and 1.4.3
+    (change to counting locks, since 1.2.x locks not while 1.4.x locks once)
+
+commit 15012f76af28093ad3fb3e20b4df398cba072665
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Dec 8 14:50:58 2009 +0100
+
+    draw: use card capabilities to work out if BLIT2 is accelerated
+
+commit be2666296662f73f16b24bcc9a0fd89d538c0317
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Dec 8 14:09:09 2009 +0100
+
+    config: clean-up config before exit
+    
+    Main reason is that the swift library unload will
+    corrupt/make holes in the memory leak list at libdirectfb exit
+
+commit 543effb187f27fd70aa4cd16c293b2736b71d2bb
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Dec 7 18:34:21 2009 +0100
+
+    locks: make sure lock hack cleans up after use by swapping locks
+
+commit 5179696a439c3f4c30f1f96ff146f69cebea963f
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Dec 4 19:40:09 2009 +0100
+
+    key repeat: pass DIEF_REPEAT on to window events, so key repeat can be observed
+
+commit 87b5650b7c0ab35a62468232213d8f033744d96e
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Dec 4 14:56:10 2009 +0100
+
+    cleanup: remove update_region() and update_region2()
+    
+    remove associated code, completely remove original region.c content
+    move the update_region3() usability functions to region.c
+
+commit de64746aa66ed4333afc1192149184980669304c
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Dec 1 21:59:20 2009 +0100
+
+    keygrabbing: fix for ungrab UNSELECTED KEYS
+
+commit 3542c6cc3b3aa2b33ceb392366a7f1c1b885cb43
+Merge: a11c962 d96bc9b
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Nov 23 16:36:08 2009 +0100
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit d96bc9bd296b898d2988ed8105c567d672469765
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Sat Nov 21 23:14:42 2009 +0100
+
+    wm: Implemented synchronized window updates with BeginUpdates() and DSFLIP_ONCE.
+
+commit 401f5fec02bcd6179c5e70e9b438836a02a49b45
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Sat Nov 21 19:05:32 2009 +0100
+
+    wm: Added a hack to avoid dead locks.
+
+commit a11c96296e3d258d23abc355425b70240323869d
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Nov 17 18:01:06 2009 +0100
+
+    composition: add completed support for BatchBlit2
+    
+    may need some cleanups to select between using it and not
+    (if not supported, checking algorithms can be performed faster)
+
+commit 48fb266e54c02f0f4fcaff7a34a9271c3cf98bd0
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Nov 6 21:08:10 2009 +0100
+
+    composition: add preliminary support for BatchBlit2
+    
+    composition takes extra advantage of:
+    - dual source, single destination blitting: two blits to one
+    - in certain cases, less background drawing due to collate
+    - no need to draw background under a opaque window when a translucent
+       on top of it is updated
+    
+    
+    (note that is a safety checkin, the old update_region2 is still default)
+
+commit 234a08d67790aa20c1a4374e06b9303c149f64f8
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Sep 11 13:02:21 2009 +0200
+
+    border: default values were unused
+
+commit aa28f83d8c447193613e179ef073d231db1e8841
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Sep 11 13:01:38 2009 +0200
+
+    SaWMan: add sawman_unregister
+    
+    Unregisters the SaWMan Manager, a.o. setting callbacks to 0
+    Solves problem when callbacks fired during clean-up
+
+commit c3ee218741fa343d8f0f74bb24d2a0cdf947d8ca
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Sep 11 12:57:44 2009 +0200
+
+    colorize: now updating properly
+    
+    previously, only got updated later, or when combined with other flag
+
+commit 808286bfd36d1c031f7223d0a36e09bdad65078a
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Sep 11 12:55:10 2009 +0200
+
+    key selection: fix for bad flag handling.
+    
+    Previously, key selection was not passed correctly through
+    to SaWMan Manager, causing the flag to be unset.
+
+commit 7ad0577930ffdb6b47511ba86df00a635315a748
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri Sep 11 11:49:13 2009 +0200
+
+    updates: fixed windows being painted on all tiers after recent optimization
+
+commit e80e3c14cf459e4db36918a4e06d652b3db0789a
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Sep 1 12:12:39 2009 +0200
+
+    SaWMan: Optimized stack updates for premultiplied alpha windows (use copy at bottom)
+    
+    Adds misc_region code from pixman.
+
+commit c14f3ff4e295b80ace824329016727cf470c0c73
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Mon Aug 31 13:28:43 2009 +0200
+
+    SaWMan: Some refactoring cleaning up...
+
+commit 4271c9dddc2b11afa1d7ad63d9a16c8d7963b137
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Aug 28 17:22:57 2009 +0200
+
+    release: SaWMan 1.4.2
+
+commit a7a31a17b51eb5a2b25ff48c6fa274d33465aed1
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Aug 27 21:42:55 2009 +0200
+
+    samples: install samples too
+
+commit 5db799d42a49c46aca72ad13b1dba947f3eda22a
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Aug 27 21:42:30 2009 +0200
+
+    SetWindowConfig: allows now all flags, except:
+    SWMCF_KEY_SELECTION, _SWMCF_ASSOCIATION and SWMCF_STACKING
+
+commit 49aa1ca74c819eebedd65244473a364cee24adf0
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Aug 27 21:34:47 2009 +0200
+
+    compatibility: fix for cooperation with DirectFB 1.2.9
+
+commit b552f99702678fabce9a1b65cfd2df938e1ab918
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Jul 6 20:17:01 2009 +0200
+
+    [API] application_id
+    
+    revisited commit 27ab674db1554d71009081151e0e24dd728598a8
+    make API more in line with window_added() and window_removed().
+    Also makes it possible to relate the callback to a specific window.
+    
+    Small fix since GetApplicationID did not work yet.
+
+commit aa2b66f01ffb7b2b8fc3bc058a2e4e2add4a6fad
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Jul 6 17:56:32 2009 +0200
+
+    [fix] typo when splitting patches
+
+commit 6b865069de74086a20a603a37c603ed3cc592bee
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jul 2 21:28:40 2009 +0200
+
+    [colorize windows] allow the window config value "color" to colorize the window
+    
+    This parameter was reserved when a window was created with DSCAPS_COLOR:
+    it would show the window with this color only (single color, no surface needed).
+    Now it is also active without DSCAPS_COLOR:
+    if you specify a color with a non-nul alpha value, the window
+    will be blended to the screen using DSBLIT_COLORISE: this multiplies
+    the window content with this color.
+
+commit 1a3458ad7814982c682f315c3fef6b86d7270327
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jul 2 21:26:05 2009 +0200
+
+    [LayerReconfig] fix to make it work
+    
+    fix for commit b4d90ffc2b09c2ad57153323003575624e9937f9
+
+commit 27ab674db1554d71009081151e0e24dd728598a8
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jul 2 21:24:25 2009 +0200
+
+    [API] add application_id to SaWMan, and app ID changed callback
+    
+    This is a window property; with this, SaWMan can monitor the app ID
+    of this window. This is a free-to-use-parameter (no imposed usage).
+    This has to be synchronous with the DirectFB change too!
+    DirectFB API has corresponding IDirectFBWindow::SetApplicationID added.
+
+commit ecfa93363ad4eff496309bdd9dc760669c77aa0f
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jul 2 21:17:58 2009 +0200
+
+    [ISaWManManager] fix SendWindowEvent.. This has never worked.
+
+commit a834d4846af03d94eae074a92e51b97d0565a9e1
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jul 2 21:15:42 2009 +0200
+
+    [SetWindowConfig] add SWMCF_OPACITY as a configurable parameter
+    
+    had to move some funcs because of that;
+    functions are just renamed/copied, not changed!
+
+commit d9e7cb9503c2ac0a2ed155587d12b0954822947d
+Author: Niels Roest <niels@directfb.org>
+Date:   Sat Jun 27 00:22:02 2009 +0200
+
+    [release] SaWMan 1.4.1
+
+commit 603835542ab6979f61b81b90f00d61897fecd4e4
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Jun 26 22:16:26 2009 +0200
+
+    [API] hide macros in internal sawman file
+
+commit 05d40284d9415cf399bb3604f3dbcfc5447a090f
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Jun 26 21:24:17 2009 +0200
+
+    [API] fix in casting, causing possible SEGV on 64-bit systems
+
+commit 34d9523625a8c0647018e3c04925b18acc0d70c0
+Author: Niels Roest <niels@directfb.org>
+Date:   Fri Jun 26 21:23:48 2009 +0200
+
+    [API] continuing the API cleanup, some functions were added/extended:
+    
+    SaWManWindowFlags: now also contain FOCUS and ENTER info (key focus)
+    SaWManWindowInfo: now also contains DFBWindowID and SaWManWindowFlags
+    
+    ISaWManManager_GetWindowInfo: to get basic window info using the handle
+    ISaWManManager_GetProcessInfo: to get process info about the window
+    ISaWManManager_IsWindowShowing: if window is visible and not obscured by other opaque windows
+    
+    goal is to hide the SaWMan internals, while offering the same functionality as before.
+
+commit e364ed0d05e63b1e07f86971b8f89529db04d812
+Merge: 965ea13 aea25c4
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Jun 23 22:38:46 2009 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit aea25c4e77a27b18ad30d3e41b8491975043f00a
+Merge: 27cb85d 412b0f4
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Jun 23 22:40:10 2009 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit 27cb85d5f4008181bd3b52fdf3a54e045eb9374a
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Jun 23 22:39:37 2009 +0200
+
+    [window info] Added resource_id from window description to window info.
+
+commit 965ea13c80fd3b5090d54cb22a29afbf765c47fc
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Jun 22 21:17:28 2009 +0200
+
+    [testman] make sure not to set superfluous request options
+
+commit 412b0f48c2ae32fb17e16a420d28665bb369d10a
+Merge: e8603cd c4016ba
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jun 18 12:20:38 2009 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit e8603cd74ba69b565c96a33cfcef52d345e15f07
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Jun 18 12:20:32 2009 +0200
+
+    [window] add support for DWCAPS_COLOR, solid color windows (no surface)
+
+commit c4016ba482564da22dec590fcccccf44cebfbcc2
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Jun 17 15:37:29 2009 +0200
+
+    [compatibility] Fixed compatibility macro usage from recent merge.
+
+commit b4d90ffc2b09c2ad57153323003575624e9937f9
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Jun 17 15:33:24 2009 +0200
+
+    [LayerReconfig] Added callback to allow override or single window optimizations.
+
+commit fc62026c4e1772940cacda7ddcf7700d47eb66ce
+Merge: c8e908e 816c0d5
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Jun 17 14:36:10 2009 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+    
+    Conflicts:
+    
+    	src/sawman.c
+    	wm/sawman/sawman_wm.c
+
+commit c8e908e29114a5ee9df428fea9c8d52e6ecb2383
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Jun 17 14:33:05 2009 +0200
+
+    [SetAssociation] Dynamic window association implementation.
+
+commit 816c0d55a6879fd7982225cdbb75db26548ed189
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Jun 16 19:21:25 2009 +0200
+
+    [release] forgot this.. drop the rc1
+
+commit ce027c4c597fbec91826c1847031ea40e817177c
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Jun 16 19:00:00 2009 +0200
+
+    [release] SaWMan 1.4.0
+
+commit 6e028de5ebd39f06881d912fa4ebbb04a6423bbe
+Author: Niels Roest <niels@directfb.org>
+Date:   Tue Jun 16 18:08:12 2009 +0200
+
+    [requirements] lighten SaWMan requirements: also use DirectFB 1.2.x
+    
+    The upcoming 1.4.0 release of SaWMan can be used with both
+    DirectFB 1.2.x and DirectFB 1.4.x branches. A rebuild will do.
+
+commit 66ea3278b65fcf314b04813051336f149a511e1c
+Author: Niels Roest <niels@directfb.org>
+Date:   Thu Feb 12 19:10:25 2009 +0100
+
+    [key handling] Some Key DWKS_LIST implementation + cleanup fix.
+
+commit 221a597b5352bf39de2b06702cbca022dede45e0
+Author: Niels Roest <niels@directfb.org>
+Date:   Mon Apr 27 20:27:59 2009 +0200
+
+    [Interface] Big interface clean-up.
+    - interface functions have external types
+    - no need to traverse internal SaWMan or DirectFB structures
+    - not backwards compatible!
+    
+    [key handling] Key routing fixes.
+    - up and down keys are now routed.
+    - Unselected keys are now routed.
+    - double routing (recursion) is fixed: prohibited.
+    
+    (small fix in autogen script)
+    (fix for skirmish assert in swmdump)
+
+commit 0e58522c30790014ea4d2bcff25c264b32dab898
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Sep 18 23:41:46 2008 +0200
+
+    [testman] Fixed locking.
+
+commit 8826e9517ebec5655857a78ad085a4318b02dbd1
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Aug 19 11:22:26 2008 +0200
+
+    [subwindows] Implemented sub window focus handling.
+    
+    - subwindows can have focus within toplevel windows (by app)
+    - focus on subwindows restored when toplevel gets focus
+
+commit e8552e1591eab2176ef7404c50e18f24344fd30f
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Sat Aug 16 02:11:22 2008 +0200
+
+    [subwindows] Prevent window association if top level windows differ.
+
+commit 8f0348d91e1bd3fdb656de4d83bb23d37b670385
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Sat Aug 16 02:10:11 2008 +0200
+
+    [windows] Implemented new option DWOP_FOLLOW_BOUNDS (window association).
+
+commit 4be8dbfad0f39c8bf44ae7f395604a7b931c197f
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Sat Aug 16 00:37:42 2008 +0200
+
+    [subwindows] Further restacking fixes for enforcement of rules...
+
+commit 90c04a5fffe7e587f401aa071abc0bd3efe0c0e6
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri Aug 15 23:02:36 2008 +0200
+
+    [subwindows] Implementation and fixes for window association with DWOP_KEEP_ABOVE or DWOP_KEEP_UNDER.
+
+commit 66e938a60be08f6698f3898b697afd69b00e771e
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri Aug 15 23:00:52 2008 +0200
+
+    [cleanup] Removed obsolete member in SaWMan struct.
+
+commit 0a399d0702a7e22e8c49cc8486e364da1ffbdbd9
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri Aug 15 17:52:35 2008 +0200
+
+    [debug] Moved debug message before assertions in update_region().
+
+commit a05ed61196a52be6e871dc7b12c06825793bf9d9
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Aug 14 21:31:37 2008 +0200
+
+    [subwindow] Conceptual corrections regarding scaling and clipping based on top level.
+
+commit c69af1fdca9c8cc1944b235d5c33f59a237982fc
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 19:17:47 2008 +0200
+
+    [swmdump] Print sub window information and indices of all top- and sub windows within global (flat) layout.
+
+commit e2d400d11fadd0dd2a01072c2f6740757518c1c7
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 19:13:56 2008 +0200
+
+    [subwindows] Implementation and fixes for sub window stacking.
+    
+    Sub windows stay on top of top level as a consistent group.
+    
+    Restacking among sub windows is fully working via public API.
+
+commit 077fe58694712c60daba5f4744be03711b4d3f48
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 06:07:59 2008 +0200
+
+    [inputonly] Different fixes and optimizations for input only windows.
+    
+    Improved single window detection to allow input only windows which are
+    being ignored as long as they don't have a window border enabled.
+    
+    Removed bad assertion about window->surface in resize_window() and set_window_bounds().
+
+commit 6478551fdc06296d106e62795d62a1a82f95a6b0
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 05:11:58 2008 +0200
+
+    [cursor] Fixed crash in cursor state machine coping with deactivated tiers now.
+    
+    When a tier is not active, its surface has no buffers at all, e.g. when no window is there.
+
+commit 6938614e1fd6df70019e7b91eb19821cd35c3604
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 05:08:55 2008 +0200
+
+    [subwindows] Extended SAWMAN_VISIBLE_WINDOW by new SAWMAN_HIDDEN_WINDOW used for top level if present.
+    
+    Hiding the top level window hides sub windows as well now, even hiding the layer if no other window is there.
+
+commit 2b2c110ced61dc88c3d2835f379bd3ea3018bd99
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 03:57:17 2008 +0200
+
+    [subwindows] Fixes for clipped sub windows and other opaque windows with a border (bounds) bigger than the destination area.
+
+commit dd44dfd401ecd5be875338de147353ca83a9b117
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Wed Aug 13 03:30:33 2008 +0200
+
+    [subwindows] Fixed update issues in sub windows when moving top level windows.
+    
+    Also optimized wind_of_change() and wind_of_showing() to avoid most of the recursive calls.
+
+commit f588849e16536d428ada6a97094c62c418d0fa5c
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Aug 12 14:33:44 2008 +0200
+
+    [subwindows] Initial sub window support with relative bounds (moved, scaled etc. with top level)...
+
+commit ec28e3f5f5cc20638e6f05a196ad709f03a0ac1d
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Aug 12 14:30:50 2008 +0200
+
+    [version] SaWMan 1.3.0 for DirectFB 1.3.0
+
+commit e66fb1d4e2547aa185788b8c10cc92e26770b444
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Aug 12 11:16:14 2008 +0200
+
+    [draw] Call backup clip region consistently "old_clip" to avoid further errors.
+
+commit 7d24e8d679a9411e30f7e6288466f429731d18ff
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Tue Aug 12 11:10:29 2008 +0200
+
+    [draw] Fixed copy'n'paste bug in restoring the clip after drawing a window.
+    
+    The clip wasn't restored at all! Drawing the background for example failed!
+
+commit 8c289a8167582f9b4b3ef50dde626bb50e1a3289
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Thu Jul 10 00:56:10 2008 +0200
+
+    [sawman] Added missing direct_list_remove() in wm_close_stack().
+
+commit ab33b04075883d09a7e4cc9ccaab6ab44946dd89
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Mon Jun 9 18:54:47 2008 +0200
+
+    1.2.0-rc1
+
+commit 4130aac68129ae6ac246bda2d1fc16343ffde832
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Mon Jun 9 18:54:18 2008 +0200
+
+    [ISaWMan] Fixed warnings.
+
+commit aa19d450c0d67e2e0e493e5440e583ef877b5f5d
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri May 30 12:30:35 2008 +0200
+
+    [Makefile] Fixed some include paths.
+
+commit c109190a3c2d70f5495f16395d6ba6c633cdc975
+Author: Denis Oliver Kropp <dok@cyto.(none)>
+Date:   Fri May 30 12:25:58 2008 +0200
+
+    ignore
+
+commit d81a1a389c717e4ab090b9c8bf981d5b759c2f62
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Thu Feb 28 14:54:36 2008 +0100
+
+    [sawman] Build fixes (DirectResult).
+
+commit c2aa00b0f18f7a6ab9e19588efc70deafdafaf74
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 17:06:17 2008 +0100
+
+    [swmdump] Fixed missing update region index.
+
+commit ef2e3df530685d6fe9d64464a7387560b2f7754e
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 12:19:10 2008 +0100
+
+    [swmdump] Show more information.
+
+commit b5a0d66535886b18f71de59609cb82bed4e29a1d
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 11:29:10 2008 +0100
+
+    [swmdump] Show region state flags.
+
+commit 1afe5cca8f70554954efbde1fd9a2567b8333244
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 13:27:17 2008 +0100
+
+    [reconfig] Avoid reading from client buffer when only the destination on screen has changed.
+    
+    (merged from b2007ph1)
+
+commit e0affc7b8e7b7f33a59b0231e26d5692e9cdab57
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 11:33:56 2008 +0100
+
+    [geometry] Fixes for following geometry of parents.
+
+commit 80630d3b91d4f4cd27e31a670b1a278081f5634a
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 26 11:33:23 2008 +0100
+
+    [reconfig] Fixes for color keying.
+    
+    (merged from b2007ph1)
+
+commit f6f0ab854e9746352adbb8d2dcf32f45f680e88a
+Merge: 72123b1 830ba2b
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 19 23:47:19 2008 +0100
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit 72123b159d67dec26022c147803e946604084af8
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Tue Feb 19 23:47:14 2008 +0100
+
+    [API] Follow API change in Fusion, removing const from fusion_skirmish_lock_count() argument.
+
+commit 830ba2bccea702cea7a619198f2cbda34f26bb9a
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Sat Jan 26 08:09:14 2008 +0100
+
+    ignore
+
+commit e2796e1429c0585379a92fff98ad56ed152eafc2
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Sat Jan 26 05:22:16 2008 +0100
+
+    Changed SaWMan's shmpool max size from 16MB to 1MB. Also follow fusion_config->debugshm.
+
+commit 6953a30bb4aed2fb69e7073fc6c850f188171bed
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Fri Nov 16 16:01:48 2007 +0100
+
+    Check for windows being inserted, not only if they are (would be) visible.
+    
+    Fixed associated window handling in sawman_showing_window(),
+    no longer needed to climb up to the top level.
+    
+    Use global window IDs, not only within each layer.
+    
+    More debug messages.
+    
+    Cleanups.
+
+commit ab90a55805304c5a1fff8b9eb6dcb215465eb493
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Fri Nov 16 15:56:26 2007 +0100
+
+    Added swmdump tool for debugging SaWMan.
+
+commit 22289dddcfa74d9b365cba831e47588b827e76b9
+Author: Denis Oliver Kropp <dok@shizo.directfb.home>
+Date:   Thu Nov 15 19:03:34 2007 +0100
+
+    Notify application manager about new tier size if previous mode was single.
+    
+    This fixes the window bounds and borders when switching to border only mode.
+
+commit 30b1237d0dd8d01e60c54d8b36dfc59a763da5fc
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Thu Oct 18 15:55:00 2007 +0200
+
+    Temporarily set layer position to 0,0 (only in config, not hw)
+    to avoid configuration failures if layer is not allowed to cross
+    screen borders.
+
+commit 02c3a5eaf9e825014a4f9a87ff7bb0d599dbc50d
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Thu Oct 18 15:51:58 2007 +0200
+
+    Fixed parsing of border-focus-color and border-unfocused-color.
+
+commit 7be07fb4a8e197b22d1c611461482d5b68ed53d0
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Oct 14 18:55:37 2007 +0200
+
+    Reset single_mode and single_window during deactivation to fix crash after reactivation.
+
+commit 98319c7a18f4135406e7e3cc87070e3a0cb825e3
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Oct 12 20:48:15 2007 +0200
+
+    More fixes, especially for unscaled or clipped regions.
+    
+    Cleanup...
+
+commit 4cc1336a41f891fd8dfbea276d321699d0b43427
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Oct 12 07:12:21 2007 +0200
+
+    Check for DWOP_ALPHACHANNEL and use DLOP_ALPHACHANNEL (single window mode).
+
+commit d3c3c193a52d83d7ea90c6cdb8c57a167d69fdc6
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Oct 12 02:14:27 2007 +0200
+
+    Added "[no-]show-empty", init default borders, center unscalable layers.
+    
+    Using "show-empty" makes SaWMan show the layer even if no window is visible.
+    
+    Default borders (red/grey) are configured with thickness of 4. To disable
+    borders, use "border-thickness = 0".
+    
+    Fix bug with reactivation of SaWMan's layer context's, e.g. when an exclusive
+    context is returned from.
+    
+    In standard mode, center layers that cannot be scaled. Previously, it just
+    tried to scale the layer to fullscreen.
+
+commit 3e69d47d70f8c81c6865b50b37dabb56543414f1
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu Oct 11 13:05:39 2007 +0200
+
+    No longer use dfb_layer_region_activate/deactivate(), but CLRSF_FROZEN.
+    
+    Startup with inactive tiers to match unrealized region.
+    
+    Before switching to single mode, border mode or standard set the
+    region state flag CLRSF_FROZEN.
+    
+    When no more windows are displayed turn off the region with dfb_layer_region_disable().
+
+commit c5f8ba27c7dd7d7fc3aff8e983362c402966a8c5
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Oct 10 22:03:29 2007 +0200
+
+    Added SAWMAN_DUMP_TIER_FRAMES which can be defined to let SaWMan dump the
+    tier surface content to "/tier_xxxxx.ppm/pgm" after each time it is updated.
+
+commit 268fc2f8ac7b1086f034aefbe701db2d3f379058
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Oct 10 11:53:11 2007 +0200
+
+    Fixed global reference counting for parent windows and processes,
+    for cleanup of resources in proper order when killing an application.
+
+commit 12b9470d794be0a9ddbd095baa6b8f8b72dc3246
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Tue Oct 9 04:21:53 2007 +0200
+
+    Fixed missing/dead locking. Added ISaWManManager::Lock()/Unlock().
+    
+    Added FUSION_SKIRMISH_ASSERT all over the place which fails if
+    the lock is not held.
+    
+    Added internal locking where it was missing.
+    
+    Application managers must call Lock()/Unlock() before accessing
+    SaWMan data structures or calling ISaWManManager methods.
+    
+    This all only works with the new lock transfer implementation,
+    otherwise a dead lock between SaWMan and application manager
+    will occur.
+
+commit 613834e3f88768ac8ab868660ffdf60c9701b6be
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Oct 8 10:59:36 2007 +0200
+
+    Build fixes for debug mode.
+
+commit 8afd63af1652eea353130b48558e862e68bfe51d
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Oct 8 10:56:32 2007 +0200
+
+    Better use !SAWMAN_TRANSLUCENT_WINDOW(window) instead of just !(window->config.options & DWOP_COLORKEYING)
+    when checking whether a window covers the whole screen without other windows visible beneath (single mode).
+
+commit 903772089bae8f20e68dcaea14fc0155ffceef43
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Oct 7 20:55:15 2007 +0200
+
+    Added ISaWManManager::ProcessUpdates() for calling outside SaWMan context.
+    
+    So far only leaving a callback in SaWMan context processed updates.
+
+commit 7dff7b0330485107c56cf9f968a553553d89d77f
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Oct 7 20:18:29 2007 +0200
+
+    Don't assume the parent's position (bounds).
+
+commit d54ae3045720e64401b3b320b72d7d800b09ff4e
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Oct 7 19:58:40 2007 +0200
+
+    Throw away software scaling code and use standard StretchBlit()
+    with DSRO_SMOOTH_UP/DOWNSCALE and DSBLIT_COLORKEY_PROTECT.
+
+commit e9e9d757a0197f6fa454199af6fcc1993608a46f
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Sep 30 16:30:18 2007 +0200
+
+    Added SAWMAN_NO_LAYER_DST_WINDOW which can be defined to prohibit layers not covering the whole screen. Fix none->standard transition.
+
+commit 7f582f2341a9aad9a4c4c1eae42987c1b12c9e6e
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Sep 30 15:58:59 2007 +0200
+
+    Only update the whole screen if update is bigger than 3/5 of it if also the buffer mode is backvideo or triple (really swapping).
+
+commit b65c6b4a84442b6752f40dfd93cbdf86701d2e10
+Merge: 70ed80f 7238a65
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Sep 30 13:30:24 2007 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit 70ed80f54a018424d9768c68168337b734454fa9
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Sep 30 13:30:17 2007 +0200
+
+    Don't attempt hw layer scaling in single window mode if not supported, but fall back to standard mode.
+
+commit 7238a651fef1ca4bb2d487e15531debfd6565144
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Sun Sep 30 11:49:31 2007 +0200
+
+    Reset single_window to NULL when hiding the layer to have the
+    surface buffers recreated during configuration.
+
+commit 13348965dbed5185651f4d1751ee38a58a8767c9
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu Sep 27 19:53:30 2007 +0200
+
+    Added missing call to sawman_update_geometry() in testman.
+
+commit 4ded744fb7a54a92d4bebb12f6b32fd161cc9081
+Merge: 9171214 25b0e00
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Tue Sep 25 14:06:36 2007 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit 91712144afe6ea3c45966eb5aaa0bb4fc8767224
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Tue Sep 25 14:06:25 2007 +0200
+
+    Fix assertion and colorkeying problem with LUT8 on RGB16.
+
+commit 25b0e0010d02a8fa43bb713ce1d4c7b2d0201456
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Sep 21 05:39:33 2007 +0200
+
+    Color keying fixes in reconfiguration, especially for indexed formats.
+
+commit 2f0d9fa81cd9c0e8c5dd67c6c5e8d30f62ea4935
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Sep 19 08:47:08 2007 +0200
+
+    Added debug messages for colorkeyed windows and background clear.
+
+commit 13bc5c21b86bfeccf3faa1cea6cbf1fb0b5c8b8f
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Sep 19 08:46:27 2007 +0200
+
+    Use dfb_layer_context_test_configuration() in layer reconfiguration. Added SAWMAN_NO_LAYER_DOWNSCALE that can be defined.
+
+commit 38edc2fe78f662f41cdf4d0455d9a1cfad8145e0
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Sep 19 08:46:16 2007 +0200
+
+    Fixed updating background of input only windows.
+
+commit 6e889f4884963a1ca351fef9a77c8b1a09e1aee3
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Aug 27 14:07:50 2007 +0200
+
+    obsolete
+
+commit be5fdf917b8c73df3a10289e5b14926fb04d96bd
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Aug 20 12:02:39 2007 +0200
+
+    Another fix for single mode with multiple layers.
+
+commit d2dcebe793aed6f92b509f26a444cf0e0db6c604
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Aug 20 11:31:40 2007 +0200
+
+    Fixed leaving single mode when window is removed.
+
+commit 6b5b32e10d385934e27cfaaec82b455d41bb56af
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Mon Aug 20 10:21:18 2007 +0200
+
+    More info and error.
+
+commit c85b98c9b7a0f0389b4519d68b6379a2f5f2d568
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Aug 15 16:50:56 2007 +0200
+
+    New Surface Core
+
+commit 1a926c37cb3d6916a3d80246e3ac96b5d6538c86
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu Aug 2 14:30:25 2007 +0200
+
+    Lookup RGB values from indexed window color key.
+    
+    Use dfb_pixel_to_color() instead of hardcoded RGB16 decoding
+    when setting an RGB window color key for the layer.
+
+commit b37ebc83cfac90ac3276cab864d980bac0fb1948
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu Aug 2 14:03:18 2007 +0200
+
+    Fixed warnings.
+
+commit 708e85f7907218994a6140489b8bf601a0500220
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed Aug 1 10:18:45 2007 +0200
+
+    Fix locking when grabbing unselected keys.
+
+commit 6d618b684da6f31a5630f3fbc866c33c430eb24a
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Wed Jul 25 11:55:25 2007 +0200
+
+    Follow core API change for layer color keying and use
+    the window color key as the index argument.
+    
+    Applications can create an indexed window and SaWMan
+    will use proper color keying (by index) when switching
+    to single window mode.
+
+commit eed1110b23e583441b594171ccb1d10f3f464b71
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Mon Jul 23 13:29:54 2007 +0200
+
+    Update scaling code with new templates.
+    
+    Added head/tail code to simple scaler.
+
+commit 513ffd1a65a23ca618d30ce2c20905ddef59600b
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Wed Jul 18 20:20:01 2007 +0200
+
+    Use window's palette in single window mode.
+
+commit 9091826acd5cd262820f101e109e1b0afc35bd7b
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Jul 6 15:43:24 2007 +0200
+
+    Added border-[un]focused-color-index<n> options.
+
+commit 0d508192c51d6c561052970fae7c033b1c02c650
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Fri Jun 15 13:15:05 2007 +0200
+
+    Support any color key for protection, not hard coded, but taken from layer configuration.
+
+commit 6f7f7c79eb77f1bbac37869d5dfcb39bd7f61137
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Fri Jun 15 13:13:30 2007 +0200
+
+    Fixed focus border updates.
+
+commit 7dadceaae5e4613c39f73adb85d3ae5d5e61b6be
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Tue Jun 12 18:55:08 2007 +0200
+
+    More fixes.
+
+commit 9eff18d11645164af6f83cb886e66258f4a60559
+Merge: b6f8090 2f7d448
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Tue Jun 12 17:46:19 2007 +0200
+
+    Merge branch 'master' of git+ssh://git.directfb.org/git/directfb/extras/SaWMan
+
+commit b6f8090e906b614aa8801db3bb8df400ac602344
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Tue Jun 12 17:45:27 2007 +0200
+
+    Different fixes for reconfiguration and window association.
+
+commit 2f7d4480cef39a2a941b7f71bc702f513bee5b99
+Author: Claudio Ciccani <klan@directfb.org>
+Date:   Fri Jun 8 12:27:44 2007 +0200
+
+    Added missing sawman_config.{c,h}.
+
+commit f4a599dce7c4c62f3c9597c2c8071d651ef36ee7
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Mon Jun 4 20:22:11 2007 +0200
+
+    Missing files.
+    
+    Use sysconfdir.
+
+commit 36f81c07c3099d103d20fee75b9c8aeb4742425d
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Fri Jun 1 08:57:58 2007 +0200
+
+    Some fixes and a temporary dead lock hack.
+
+commit 91ef8b53cab6ee519d7dc7678523c6cbc7a54157
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu May 31 17:27:30 2007 +0200
+
+    Fix reconfiguration issues with latest border only code.
+    
+    Follow StartDesktop -> PostInit change.
+
+commit e65a4499706207720df3611f68e7b191a22a8ab6
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu May 31 15:04:21 2007 +0200
+
+    Add more debug. Cleanup a bit.
+
+commit aa32bb979d1d145d92e477eae0c94094497c8677
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Thu May 31 14:19:08 2007 +0200
+
+    Debug messages, geometry update fix, associated window update fix.
+
+commit 3637a9295dd09cc48066b55dfe12bb8b0a55bb6f
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Wed May 30 18:10:07 2007 +0200
+
+    New sawmanrc.
+    
+    Better window border configuration. Adapt to layer resolutions.
+    Reconfigure layer for border only mode if possible.
+    
+    Handle parent window lookup and DWOP_KEEP_ABOVE/UNDER.
+
+commit f202ab6289b12042d1880948489adc228908a50f
+Author: Denis Oliver Kropp <dok@shizo.(none)>
+Date:   Wed May 30 01:07:31 2007 +0200
+
+    Dispatch SwitchFocus() via AppMan.
+
+commit 51dc2c59313d3faede22a286376ce6084c4cd301
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Tue May 29 23:23:26 2007 +0200
+
+    Follow FusionCall API changes.
+
+commit bcb44368e0b702b4a0fc228c699cb01a1928c281
+Author: Denis Oliver Kropp <dok@shizo.zion.home>
+Date:   Tue May 22 14:23:09 2007 +0200
+
+    Version 1.1.0
+
+commit 1e263238c0bf121055f77971f2f84bf85666eb90
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Tue Jan 30 23:40:57 2007 +0000
+
+    Minor update.
+
+commit 32bb50d28505cd391bc590329565d880eb9e08ff
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Tue Jan 30 21:36:59 2007 +0000
+
+    dist fixes
+
+commit eb772ebaf03c169292feb0bfac20c36a48808541
+Author: Denis Oliver Kropp <dok@directfb.org>
+Date:   Tue Jan 30 21:17:52 2007 +0000
+
+    "This is SaWMan... Checkout the README to avoid being sliced through!"

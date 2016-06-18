@@ -1,0 +1,7 @@
+#force-windowed
+#window-surface-policy = systemonly
+#mode = 852x480
+mode = 640x768
+#mode = 1366x768
+
+force-slave

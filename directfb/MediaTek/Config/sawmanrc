@@ -1,0 +1,40 @@
+init-border       = 0
+border-thickness  = 2
+#border-format     = LUT8
+border-resolution = 426x240
+border-focused-color0 = ffc0c000
+border-focused-color1 = ffa0b000
+border-focused-color2 = ff80a000
+border-focused-color3 = ff409000
+border-unfocused-color0 = ffa0a0a0
+border-unfocused-color1 = ff909090
+border-unfocused-color2 = ff808080
+border-unfocused-color3 = ff505050
+
+init-border       = 1
+border-thickness  = 2
+#border-format     = LUT8
+border-resolution = 426x240
+border-focused-color0 = ffc0c000
+border-focused-color1 = ffa0b000
+border-focused-color2 = ff80a000
+border-focused-color3 = ff409000
+border-unfocused-color0 = ffa0a0a0
+border-unfocused-color1 = ff909090
+border-unfocused-color2 = ff808080
+border-unfocused-color3 = ff505050
+
+init-border       = 2
+border-thickness  = 2
+#border-format     = LUT8
+#border-resolution = 1366x768
+border-resolution = 426x240
+border-focused-color0 = ffc0c000
+border-focused-color1 = ffa0b000
+border-focused-color2 = ff80a000
+border-focused-color3 = ff409000
+border-unfocused-color0 = ffa0a0a0
+border-unfocused-color1 = ff909090
+border-unfocused-color2 = ff808080
+border-unfocused-color3 = ff505050
+

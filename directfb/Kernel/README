@@ -1,0 +1,3 @@
+For building the Fusion Kernel Module, 
+type "make KERNEL=your kernel source root".
+e.g. make KERNEL=/workspace/linux-2.6.18_mvl500

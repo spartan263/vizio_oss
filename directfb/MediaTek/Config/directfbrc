@@ -1,0 +1,68 @@
+#
+# General options
+############################
+no-cursor
+#no-hardware
+#no-software
+no-translucent-windows
+
+#debugmem
+debugshm
+
+wm = sawman
+
+#font-format = A4
+
+screenshot-dir = /tmp
+
+#tmpfs = /dev/shm
+tmpfs = /tmp
+#trace
+
+#
+# Layer 0
+############################
+init-layer        = 0
+layer-stacking    = lower,middle, upper
+layer-size        = 864x480
+layer-format      = RGB16
+layer-buffer-mode = backvideo
+
+#
+# Layer 1
+############################
+#init-layer        = 1
+#layer-stacking    = upper
+#layer-size        = 1366x768
+#layer-format      = RGB16
+#layer-buffer-mode = frontonly
+#layer-bg-color    = 000400
+#layer-src-key     = 000400
+
+# Layer 2
+############################
+#init-layer        = 2
+#layer-stacking    = upper
+#layer-size        = 852x480
+#layer-format      = LUT8 
+##layer-format      = LUT8
+#layer-buffer-mode = frontonly
+
+#
+# Debugging options
+############################
+
+#debug = cetvfb/cetvfb
+#debug = cetvfb/primary
+#debug = jag/primary
+debug = core/layer_region
+#debug = sawman
+#debug = idirectfbdisplaylayer
+#debug = core/windowstack
+
+#debug = core/surfacemgr
+
+#debug = sawman/auto
+
+#surface-sentinel
+

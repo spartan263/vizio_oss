@@ -1,0 +1,248 @@
+;--------------------------------------------------------------------------
+;
+;   Linux Demo for TRACE32 RTOS debugger
+;
+;   This batchfile demonstrates the use of the RTOS Debugger for Linux
+;
+;   The example is generated for an ARM Versatile board using an ICD.
+;   It will NOT run on any other board, but may be used as a template
+;   for others.
+;   Linux is downloaded to the board via ICD.
+;
+;   Created by Rudi Dienstbeck / Lauterbach GmbH at 03.12.2002
+;
+;--------------------------------------------------------------------------
+
+
+ &PhyRamStart=0x00000000
+ &RamdiskStart=&PhyRamStart+0x01200000
+ &RamdiskSize=0x00A00000	;10mb
+; We currently only give kernel 56MB DRAM because FBM eats too much DRAM
+ &LimitRam=0x05000000	;80mb
+ 
+ &BootArgStart=&PhyRamStart+0x100
+ &BootArgEnd=&BootArgStart+0x6ff
+ &KernelStart=&PhyRamStart+0x8000
+ &KernelStartVirt=&KernelStart+0xC0000000
+ &KernelEndVirt=&KernelStartVirt+0x01ffffff
+
+ ; Save current breakpoint list
+ Store saved_brkpts_mt5368.cmm Break
+
+
+ screen.on
+
+ ; Debugger Reset
+
+ ; winpage.reset
+ ; area.reset
+ ; WINPOS 0. 26. 75. 8. 0. 0. W000
+ ; area
+
+ print "resetting..."
+ 
+ System.Down
+ TASK.RESet
+ Break.Delete
+ MAP.RESet
+ sYmbol.RESet
+ MMU.RESet
+ GROUP.RESet
+
+ ; setup of ICD
+
+ print "initializing..."
+sys.reset
+SYSTEM.OPTION ENRESET OFF
+SYSTEM.CPU CortexA8
+;R-T Memory Access
+SYSTEM.MULTICORE DEBUGACCESSPORT 0
+;Setting Core debug register access
+SYSTEM.MULTICORE COREBASE APB:0x80010000
+
+
+ sys.jc 15mhz
+ SYStem.Option DACR ON          ; give Debugger global write permissions
+ TrOnchip.Set DABORT OFF        ; used by Linux for page miss!
+ TrOnchip.Set PABORT OFF        ; used by Linux for page miss!
+ TrOnchip.Set UNDEF OFF         ; used to detect non-existent coprocessor
+ SYStem.Option MMU ON           ; enable space ids to virtual addresses
+ SYStem.Up
+ SYStem.Option L2CacheBase 0xf2000000
+ SETUP.IMASKASM ON          ; lock interrupts while single stepping
+ ;SYStem.Option DCDIRTY       On
+ 
+ Register.RESet
+
+ D.S SD:0xf2000100 %LE %LONG 0 ; turn off L2 cache
+ ; Target Setup: initialize DRAM controller and peripherals
+
+ ; turn off mmu
+ d.s c15:0x1 0
+
+ ; let the on board boot monitor initialize everything
+ ; Go
+ ; wait 2.s
+ ; Break
+
+ ; clean and invalidate D cache
+ d.s c15:0xE7 0
+
+ ; invalidate I+BTB
+ d.s c15:0x57 0
+
+ D.S SD:0xf0005080 %LE %LONG 0
+
+ D.S SD:0xf0007470 %LE %LONG 1
+ D.S SD:0xf0007400 %LE %LONG 0
+ D.S SD:0xf0007410 %LE %LONG 0
+ D.S SD:0xf0007420 %LE %LONG 0
+ D.S SD:0xf0007430 %LE %LONG 0
+ D.S SD:0xf0007440 %LE %LONG 0
+ D.S SD:0xf0007470 %LE %LONG 0
+
+ D.S SD:0xf0008034 %LE %LONG 0
+ D.S SD:0xf000804C %LE %LONG 0
+ D.S SD:0xf0028044 %LE %LONG 0
+
+ d.load.binary cache-v7.bin 0x8000
+ Register.Set R14 0x9000
+ Register.Set PC 0x8000
+ go 0x9000 /Onchip
+ wait !run()
+ 
+ 
+ ; Clear memory
+ ; data.set 0--&RamdiskStart %Long 0
+
+ ; Load the Linux kernel
+
+ ; If you are using a flashed kernel, or if you're
+ ; loading your kernel via TFTP, use the boot monitor
+ ; to do so.
+
+ ; Use the next lines only to load the kernel into
+ ; RAM using the debugger.
+
+ print "loading Linux image..."
+
+ ; vmlinux starts physically at RAM start (=0x0) + 0x8000
+ ; (see arch/arm/kernel/head-armv.S)
+ ; We have to adjust it from the virtual start address at the label
+ ; "stext" from the System.map ("nm vmlinux | sort")
+ ; i.e.: Data.LOAD.Elf vmlinux <physical start>-<virtual start>
+
+ Data.LOAD.Elf ../vmlinux &KernelStart-&KernelStartVirt /gnu /nosymbol
+
+ ; setup boot parameters with ATAG list
+ Data.Set &BootArgStart--&BootArgEnd 0    ; clear parameter area
+
+ &tagAddr=&BootArgStart
+ ; ATAG_CORE
+ data.set &tagAddr %LONG %LE 0x2
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr  %LONG %LE 0x54410001
+ &tagAddr=&tagAddr+0x4
+
+ ; ATAG_MEM
+ data.set &tagAddr %LONG %LE 0x4
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE 0x54410002
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE &LimitRam 
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE &PhyRamStart // start
+ &tagAddr=&tagAddr+0x4
+
+ ; ATAG_INITRD2
+ data.set &tagAddr %LONG %LE 0x4
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE 0x54420005
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE &RamdiskStart
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE &RamdiskSize
+ &tagAddr=&tagAddr+0x4
+
+ data.set &tagAddr %LONG %LE 0x100
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE 0x54410009
+ &tagAddr=&tagAddr+0x4
+  data.set &tagAddr "root=/dev/ram console=ttyMT0,115200n1 mtdparts=mt53xx-nand:2M(uboot),2M(uboot_env),2M(sigA),2M(sigB),6M(kernelA),6M(kernelB),10M(rootfsA),10M(rootfsB),25M(basic),179M(rw_area),1M(perm),128k(reserved),2M(channelsA),2M(channelsB),2M(pq),2M(aq),-(logo)" 0x0 
+; data.set &tagAddr "root=/dev/ram console=ttyMT0,115200n1 mtdparts=mt53xx-nand:2M(uboot),2M(uboot_env),2M(sigA),2M(sigB),6M(kernelA),6M(kernelB),10M(rootfsA),10M(rootfsB),25M(basic),179M(rw_area),1M(perm),128k(reserved),2M(channelsA),2M(channelsB),2M(pq),2M(aq),-(logo)" 0x0
+; data.set &tagAddr "root=/dev/mtdblock6 console=ttyMT0,115200n1 mtdparts=mt53xx-nand:2M(uboot),2M(uboot_env),2M(sigA),2M(sigB),2M(kernelA),2M(kernelB),10M(rootfsA),10M(rootfsB),25M(basic),180M(rw_area),1M(perm),128k(reserved),2M(channelsA),2M(channelsB),2M(pq),2M(aq),-(logo)" 0x0
+ &tagAddr=&tagAddr+0x200
+
+
+ ; ATAG_NONE
+ data.set &tagAddr %LONG %LE 0x0
+ &tagAddr=&tagAddr+0x4
+ data.set &tagAddr %LONG %LE 0x0
+ &tagAddr=&tagAddr+0x4
+
+ ; Set Register PC, R0, R1, R2
+ Register.RESet
+ Register.Set PC &KernelStart ; Set PC on start address of image
+ Register.Set R0 0.
+ Register.Set R1 5368. ; Set machine type in R1; see arch/arm/tools/mach-types
+ Register.Set R2 &BootArgStart ; Set R2 to start addr of ATAG list
+
+ ; Loading RAM disk
+
+ print "loading ram disk"
+
+ ; Load rom file system image into ram disk
+ ; The load address is hardcoded in arch/arm/mach-versatile/arch.c
+ Data.LOAD.Binary rd5368.gz &RamdiskStart /noclear /nosymbol
+ 
+ ; Load the Linux kernel symbols into the debugger
+
+ print "loading Linux kernel symbols..."
+ 
+ Data.LOAD.Elf ../vmlinux /gnu /nocode
+; y.spath.srd ../init
+; y.spath.srd ../arch/arm/mach-mt5396
+; y.spath.srd ../arch/arm/kernel
+; y.spath.srd ../arch/arm/mm
+; y.spath.srd ../drivers/serial
+; y.spath.srd ../drivers/mtk/mt5368
+; y.spath.srd ../fs
+
+ ; Open a Code Window -- we like to see something
+
+ ; WINPOS 0. 0. 75. 20.
+ Register
+ Data.List
+ screen
+ 
+ ; Run over MMU & Interrupt initialization
+
+ go start_kernel /Onchip
+ wait !run()
+ MMU.Create &KernelStartVirt--&KernelEndVirt &PhyRamStart ; map kernel pages at RAM start
+ MMU.COMMON 0xbf000000--0xffffffff            ; common area for kernel and processes
+ MMU.ON 			              ; Turn on debugger's internal MMU translation
+ MMU.AUTOSCAN ON                                ; auto scan MMU translation table upon failing to access given virtual addr
+ MMU.SCANALL
+
+ TASK.CONFIG linux       ; loads Linux awareness (linux.t32)
+ MENU.ReProgram linux    ; loads Linux menu (linux.men)
+ HELP.FILTER.Add rtoslinux  ; add linux awareness manual to help filter
+
+ task.option threading tgroup ; turn on multi-threading display option
+
+ GROUP.Create "kernel" 0xc0000000--0xffffffff /RED
+
+ ; Restore saved breakpoint list
+ Do saved_brkpts_mt5368.cmm
+
+ go
+ 
+ End
+
+
+
+
+
+
+

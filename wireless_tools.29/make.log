@@ -1,0 +1,18 @@
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -fPIC -c -o iwlib.so iwlib.c
+rm -f libiw.a
+armv7a-mediatek451_001_vfp-linux-gnueabi-ar cru libiw.a iwlib.so
+ranlib libiw.a
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwconfig.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwconfig iwconfig.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwlist.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwlist iwlist.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwpriv.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwpriv iwpriv.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwspy.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwspy iwspy.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwgetid.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwgetid iwgetid.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c iwevent.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o iwevent iwevent.o libiw.a -lm
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -c ifrename.c
+armv7a-mediatek451_001_vfp-linux-gnueabi-gcc  -Wl,-s -Os -W -Wall -Wstrict-prototypes -Wmissing-prototypes -Wshadow -Wpointer-arith -Wcast-qual -Winline -I. -MMD     -o ifrename ifrename.o libiw.a -lm

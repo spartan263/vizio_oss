@@ -1,0 +1,69 @@
+#
+# General options
+############################
+no-cursor
+#no-hardware
+#no-software
+no-translucent-windows
+
+#debugmem
+#debugshm
+
+wm = sawman
+
+screenshot-dir = /tmp
+
+tmpfs = /tmp
+
+# to enable tracing, uncomment 'trace' and comment 'no-sighandler'
+#trace
+no-sighandler
+
+# Ignore assert:
+fatal-level = none
+
+
+#window-surface-policy = systemonly
+
+#
+# Layer 0
+############################
+init-layer        = 0
+layer-stacking    = lower,middle
+layer-size        = 1280x720
+layer-format      = ARGB
+#layer-size        = 960x540
+#layer-format      = ARGB
+layer-buffer-mode = backvideo
+bg-color          = 0
+#layer-palette-0   = 0
+
+#
+# Layer 1
+############################
+init-layer        = 1
+layer-stacking    = upper
+layer-size        = 1280x720
+layer-format      = ARGB
+#layer-size        = 960x540
+#layer-format      = ARGB
+layer-buffer-mode = backvideo
+bg-color          = 0
+#layer-palette-0   = 0
+#
+# Debugging options
+############################
+
+#debug = core/layers
+#debug = sawman
+#debug = core/graphicsops
+#debug = core/surface
+#debug = idirectfbdisplaylayer
+#debug = core/windowstack
+
+#debug = core/surfacemgr
+
+#debug = sawman/auto
+
+#surface-sentinel
+

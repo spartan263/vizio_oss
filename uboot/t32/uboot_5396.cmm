@@ -1,0 +1,54 @@
+store "breakpts.cmm" Break
+; store "windowps.cmm" Win
+
+SYS.RESET
+
+;====select configuration according to your enviroment====
+;=========================================================
+; CVD, dual core
+SYSTEM.CPU CortexA9MPCoreSMP2
+SYS.JC 30.0MHz
+
+; CVD, single core
+;SYSTEM.CPU CortexA9
+;SYS.JC 30.0MHz
+
+;T32 single&dual core
+;SYSTEM.CPU CortexA9MPCore
+;SYS.JC 15.0MHz
+;SYSTEM.MULTICORE COREBASE APB:0x80110000
+;=========================================================
+
+SYS.M UP
+wait 10.ms
+
+; This is the program name that you want to load
+D.S C15:0x1 %LONG 0
+D.S 0x2000705c %LONG 0 0 0 0 0 0 0 0
+r.s t 0
+
+d.load.elf ../u-boot-1.3.4/u-boot
+
+do "breakpts.cmm"
+; do "windowps.cmm"
+
+setup.imaskhll on
+setup.imaskasm on
+; You need to set the path of source code, otherwise you could not
+; see the source when debugging.
+y.spath.srd ../u-boot-1.3.4
+;y.spath.srd ../u-boot-1.3.4/common
+;y.spath.srd ../u-boot-1.3.4/board/mt5396
+;y.spath.srd ../u-boot-1.3.4/include
+;y.spath.srd ../u-boot-1.3.4/lib_arm
+;y.spath.srd ../u-boot-1.3.4/lib_generic
+;y.spath.srd ../u-boot-1.3.4/drivers
+
+data.list
+m
+V %HEX
+; go
+
+end
+
+

@@ -1,0 +1,47 @@
+linux-fusion (8.7.0-1) unstable; urgency=high
+
+  * new upstream version (8.7.0)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Mon, 26 Sep 2011 11:23:17 +0200
+
+linux-fusion (8.5.2-1) unstable; urgency=high
+
+  * new upstream version (8.5.2)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Tue, 20 Sep 2011 13:29:17 +0200
+
+linux-fusion (8.5.1-1) unstable; urgency=high
+
+  * new upstream version (8.5.1)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Fri, 29 Jul 2011 18:29:17 +0200
+
+linux-fusion (8.5.0-1) unstable; urgency=high
+
+  * new upstream version (8.5.0)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Fri, 29 Jul 2011 12:24:58 +0200
+
+linux-fusion (8.4.0-1) unstable; urgency=high
+
+  * new upstream version (8.4.0)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Tue, 12 Jul 2011 11:20:48 +0200
+
+linux-fusion (8.3.1-1) unstable; urgency=high
+
+  * new upstream version (8.3.1)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Sat, 09 Apr 2011 18:02:48 +0200
+
+linux-fusion (8.3.0-2) unstable; urgency=high
+
+  * new upstream version (8.3.0 final)
+
+ -- Andreas Shimokawa <andi@directfb.org>  Tue, 30 Mar 2011 13:02:48 +0200
+
+linux-fusion (8.3.0-1) unstable; urgency=low
+
+  * Initial package version
+
+ -- Andreas Shimokawa <andi@directfb.org>  Tue, 22 Mar 2011 13:02:48 +0200

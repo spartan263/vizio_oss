@@ -1,0 +1,26 @@
+#-----------------------------------------------------------------------------
+# Copyright (c) 2009, MediaTek Inc.
+# All rights reserved.
+#
+# Unauthorized use, practice, perform, copy, distribution, reproduction,
+# or disclosure of this information in whole or in part is prohibited.
+#-----------------------------------------------------------------------------
+# $RCSfile:  $
+# $Revision:
+# $Date:
+# $Author:  $
+# $CCRevision:  $
+# $SWAuthor:  $
+# $MD5HEX:  $
+#
+# Description:
+#        A set of files describing the framebuffer interface and core types.
+#---------------------------------------------------------------------------*/
+
+all:
+	ln -fs libasound.so.2.0.0 libasound.so
+	ln -fs libasound.so.2.0.0 libasound.so.2
+clean: 	
+	rm -rf libasound.so
+	rm -rf libasound.so.2
+

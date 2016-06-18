@@ -1,0 +1,32 @@
+
+;store "breakpts.cmm" Break
+; store "windowps.cmm" Win
+
+res
+SYS.CPU ARM1176JZ
+; In General, you can use rtck to select clock automatically.
+;SYS.JC rtck
+SYS.JC 1.0MHz
+SYS.M Attach
+wait 10.ms
+;break
+wait 10.ms
+; This is the program name that you want to load
+; D.S C15:0x1 %LONG 0
+; D.S 0x2000705c %LONG 0 0 0 0 0 0 0 0
+
+d.load.elf ../u-boot-1.1.4/board/mt5391/pack/mt5392bm1v1EU_preloader_nand /gnu /nocode
+
+;do "breakpts.cmm"
+; do "windowps.cmm"
+
+setup.imaskhll on
+setup.imaskasm on
+; You need to set the path of source code, otherwise you could not
+; see the source when debugging.
+y.spath.srd ../u-boot-1.1.4/board/mt5391/preloader
+
+data.list
+m
+V %HEX
+; go

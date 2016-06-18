@@ -1,0 +1,166 @@
+dnl Process this file with autoconf to produce a configure script.
+
+AC_INIT(wm/sawman/sawman_wm.c)
+
+AC_PREREQ(2.52)
+
+#
+# Making releases:
+#   SAWMAN_MICRO_VERSION += 1;
+#   SAWMAN_INTERFACE_AGE += 1;
+#   SAWMAN_BINARY_AGE += 1;
+# if any functions have been added, set SAWMAN_INTERFACE_AGE to 0.
+# if backwards compatibility has been broken,
+# set SAWMAN_BINARY_AGE and SAWMAN_INTERFACE_AGE to 0.
+#
+SAWMAN_MAJOR_VERSION=1
+SAWMAN_MINOR_VERSION=5
+SAWMAN_MICRO_VERSION=3
+SAWMAN_INTERFACE_AGE=3
+SAWMAN_BINARY_AGE=3
+SAWMAN_VERSION=$SAWMAN_MAJOR_VERSION.$SAWMAN_MINOR_VERSION.$SAWMAN_MICRO_VERSION
+
+AC_SUBST(SAWMAN_MAJOR_VERSION)
+AC_SUBST(SAWMAN_MINOR_VERSION)
+AC_SUBST(SAWMAN_MICRO_VERSION)
+AC_SUBST(SAWMAN_INTERFACE_AGE)
+AC_SUBST(SAWMAN_BINARY_AGE)
+AC_SUBST(SAWMAN_VERSION)
+
+AC_DEFINE_UNQUOTED(SAWMAN_VERSION,"$SAWMAN_VERSION",[The DirectFB version])
+
+# libtool versioning
+LT_RELEASE=$SAWMAN_MAJOR_VERSION.$SAWMAN_MINOR_VERSION
+LT_CURRENT=`expr $SAWMAN_MICRO_VERSION - $SAWMAN_INTERFACE_AGE`
+LT_REVISION=$SAWMAN_INTERFACE_AGE
+LT_AGE=`expr $SAWMAN_BINARY_AGE - $SAWMAN_INTERFACE_AGE`
+
+AC_SUBST(LT_RELEASE) 
+AC_SUBST(LT_CURRENT) 
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+VERSION=$SAWMAN_VERSION
+PACKAGE=SaWMan
+
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
+
+AM_MAINTAINER_MODE
+
+AM_CONFIG_HEADER(config.h)
+
+AC_DISABLE_STATIC 
+AM_PROG_LIBTOOL
+AM_SANITY_CHECK
+AC_ISC_POSIX
+AM_PROG_CC_STDC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+AC_HEADER_STDC
+AC_C_BIGENDIAN
+AC_PROG_CXX
+
+AC_CHECK_HEADERS(stdbool.h)
+
+#
+# Find pkg-config
+#
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+if test x$PKG_CONFIG = xno ; then
+  AC_MSG_ERROR([*** pkg-config not found. See http://pkgconfig.sourceforge.net])
+fi
+
+if ! pkg-config --atleast-pkgconfig-version 0.9 ; then
+  AC_MSG_ERROR([*** pkg-config too old; version 0.9 or better required.])
+fi
+
+#
+# Check for DirectFB-Internal
+#
+DFB_VERSION=1.5.3
+AC_MSG_CHECKING(for DirectFB-Internal >= $DFB_VERSION)
+  if $PKG_CONFIG --atleast-version $DFB_VERSION directfb-internal ; then
+        MODULEDIR=$libdir/`$PKG_CONFIG --variable=moduledirname directfb-internal`
+        DFB_CFLAGS=`$PKG_CONFIG --cflags directfb-internal`
+        DFB_LIBS=`$PKG_CONFIG --libs directfb-internal`
+	DFB_INTERNAL_VERSION=`$PKG_CONFIG --modversion directfb`
+        AC_MSG_RESULT(found (version $DFB_INTERNAL_VERSION))
+  else
+        AC_MSG_ERROR([*** DirectFB-Internal >= $DFB_VERSION is required. ])
+  fi
+
+
+
+#
+# Check for FusionDale
+#
+#FUSIONDALE_VERSION=0.1.0
+#AC_MSG_CHECKING(for FusionDale >= $FUSIONDALE_VERSION)
+#  if $PKG_CONFIG --atleast-version $FUSIONDALE_VERSION fusiondale ; then
+#        FUSIONDALE_CFLAGS=`$PKG_CONFIG --cflags fusiondale`
+#        FUSIONDALE_LIBS=`$PKG_CONFIG --libs fusiondale`
+#        AC_MSG_RESULT(found (version $FUSIONDALE_INTERNAL_VERSION))
+#  else
+#        AC_MSG_ERROR([*** FusionDale >= $FUSIONDALE_VERSION is required. ])
+#  fi
+
+
+if test "x$GCC" = xyes; then
+  DFB_CFLAGS="$DFB_CFLAGS -O3 -fexpensive-optimizations -ffast-math -Wall"
+fi
+
+
+#
+# Conditional debugging support
+#
+
+AC_ARG_ENABLE(debug, [  --enable-debug          enable debugging support [[default=no]]],, enable_debug=no)
+if test "x$enable_debug" = xyes; then
+    AC_DEFINE(DFB_DEBUG, 1, [Define to 1 to enable debugging support.])
+    DFB_CFLAGS="$DFB_CFLAGS -g3 -DDIRECT_ENABLE_DEBUG"
+else
+    DFB_CFLAGS="$DFB_CFLAGS -g0"
+fi
+AM_CONDITIONAL(ENABLE_DEBUG, test "x$enable_debug" = xyes)
+
+
+DATADIR=$datadir/directfb
+INCLUDEDIR=$includedir/sawman
+
+# Honor aclocal flags
+ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
+
+
+AM_CONDITIONAL(BUILD_STATIC, test "$enable_static" = "yes")
+
+
+AC_SUBST(DFB_CFLAGS)
+AC_SUBST(DFB_LIBS)
+#AC_SUBST(FUSIONDALE_CFLAGS)
+#AC_SUBST(FUSIONDALE_LIBS)
+AC_SUBST(DATADIR)
+AC_SUBST(MODULEDIR)
+AC_SUBST(INCLUDEDIR)
+AC_SUBST(PACKAGE)
+
+CFLAGS="$CFLAGS -Werror-implicit-function-declaration"
+CXXFLAGS="$CFLAGS"
+
+AC_OUTPUT([
+Makefile
+sawman.pc
+include/Makefile
+samples/Makefile
+src/Makefile
+tools/Makefile
+wm/Makefile
+wm/sawman/Makefile
+])
+
+
+AC_MSG_RESULT([
+Build options: 
+  Module directory       $MODULEDIR
+  Debug mode             $enable_debug
+  CFLAGS                 $CFLAGS
+])

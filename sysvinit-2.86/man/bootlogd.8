@@ -1,0 +1,39 @@
+.TH BOOTLOGD 8 "Jul 21, 2003" "" "Linux System Administrator's Manual"
+.SH NAME
+bootlogd \- record boot messages
+.SH SYNOPSIS
+.B /sbin/bootlogd
+.RB [ \-d ]
+.RB [ \-r ]
+.RB [ \-v ]
+.RB [ " -l logfile " ]
+.RB [ " -p pidfile " ]
+.SH DESCRIPTION
+\fBBootlogd\fP runs in the background and copies all strings sent to the
+\fI/dev/console\fP device to a logfile. If the logfile is not accessible,
+the messages will be buffered in-memory until it is.
+.SH OPTIONS
+.IP \fB\-d\fP
+Do not fork and run in the background.
+.IP \fB\-r\fP
+If there is an existing logfile called \fIlogfile\fP rename it to
+\fIlogfile~\fP unless \fIlogfile~\fP already exists.
+.IP \fB\-v\fP
+Show version.
+.IP \fB\-l logfile\fP
+Log to this logfile. The default is \fI/var/log/boot\fP.
+.IP \fB\-p pidfile\fP
+Put process-id in this file. The default is no pidfile.
+.SH BUGS
+Bootlogd works by redirecting the console output from the console
+device. It copies that output to the real console device and a
+logfile. There is no standard way to find out the real console device
+if you have a new-style \fI/dev/console\fP device (major 5, minor 1).
+\fBBootlogd\fP tries to parse the kernel command line, looking for
+console= lines and deducts the real console device from that. If that
+syntax is ever changed by the kernel, or a console-type is used
+bootlogd does not know about, bootlogd will not work.
+.SH AUTHOR
+Miquel van Smoorenburg, miquels@cistron.nl
+.SH "SEE ALSO"
+.BR dmesg (8)

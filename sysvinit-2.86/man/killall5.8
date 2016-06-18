@@ -1,0 +1,17 @@
+.TH KILLALL5 8 "04 Nov 2003" "" "Linux System Administrator's Manual"
+.SH NAME
+killall5 -- send a signal to all processes.
+.SH SYNOPSIS
+.B killall5
+.RB -signalnumber
+.SH DESCRIPTION
+.B killall5
+is the SystemV killall command. It sends a signal to all processes except
+kernel threads and the processes in its own session, so it won't kill
+the shell that is running the script it was called from. Its primary
+(only) use is in the \fBrc\fP scripts found in the /etc/init.d directory.
+.SH SEE ALSO
+.BR halt (8),
+.BR reboot (8)
+.SH AUTHOR
+Miquel van Smoorenburg, miquels@cistron.nl

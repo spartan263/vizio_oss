@@ -1,0 +1,9 @@
+INSTALL Steps:
+
+tar -jxvf alsa-lib-1.0.24.1.daniel.tar.bz2
+tar -jxvf alsa-utils-1.0.24.2.daniel.tar.bz2
+linuxq make BUILD_CFG=rel TOOL_CHAIN=4.5.1 ENABLE_CA9=true all
+linuxq make BUILD_CFG=rel TOOL_CHAIN=4.5.1 ENABLE_CA9=true util
+
+After that, you can copy the utils from third_party/source/alsa/output/bin.
+Also, you can go ahead with the rest sys_build process.

@@ -1,0 +1,3 @@
+window-surface-policy = systemonly
+
+force-slave

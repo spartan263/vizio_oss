@@ -1,0 +1,61 @@
+#
+# General options
+############################
+no-cursor
+no-hardware
+#no-software
+no-translucent-windows
+
+#debugmem
+debugshm
+
+wm = sawman
+
+font-format = A4
+
+screenshot-dir = /tmp
+
+tmpfs = /dev/shm
+trace
+
+#
+# Layer 0
+############################
+init-layer        = 0
+layer-stacking    = upper, middle, lower
+#layer-size        = 1360x768
+layer-size        = 1366x768
+#layer-format      = RGB16
+layer-format      = LUT8
+#layer-buffer-mode = backvideo
+layer-buffer-mode = frontonly
+layer-bg-color    = 000400
+layer-src-key     = 000400
+
+#
+# Layer 1
+############################
+#init-layer        = 1
+#layer-stacking    = middle, lower
+#layer-size        = 1366x768
+#layer-format      = RGB16
+#layer-format      = LUT8
+#layer-buffer-mode = frontonly
+#layer-bg-color    = 000400
+#layer-src-key     = 000400
+
+#
+# Debugging options
+############################
+
+#debug = jag/primary
+#debug = sawman
+#debug = idirectfbdisplaylayer
+#debug = core/windowstack
+
+#debug = core/surfacemgr
+
+debug = sawman/auto
+
+#surface-sentinel
+

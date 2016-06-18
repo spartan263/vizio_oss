@@ -1,0 +1,46 @@
+if run()
+    break
+
+break.set set_binfmt /CONDition task.proc.spaceid("dtvap")!=0xffffffff
+go
+wait !run()
+break.delete set_binfmt
+
+&local spaceid
+&spaceid=task.proc.spaceid("dtvap")
+
+data.load.elf T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/sys_build/mtk/mt5392b_atsc_linux/mt5392b_atsc_linux_dbg &spaceid:0 /gnu /nocode /noclear
+MMU.scanAll
+MMU.autoscan off
+
+break.set main /Onchip
+
+;y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/dtv_linux/dtv_process
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/dtv_linux/dtv_process/handle
+;y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/sys_build/mtk/mt5392b_linux_demo
+;y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/middleware/svl
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/middleware/strm_mngr
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/dtv_linux/dtv_driver_adpt/mt539x/adaption/ioctl_reg
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/dtv_linux/dtv_driver_adpt/mt539x/adaption/adpt_res_mngr
+;y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/custom/dev/app_util
+;y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/project_x/target/linux-2.6.18/start
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/chiling/kernel/linux-2.6.18/arch/arm/mm
+y.spath.srd T:/net0801/DTV/PROD_BR/DTV_X_IDTV0801/vm_linux/chiling/kernel/linux-2.6.18/drivers/mtk/mt5391/linux/ioctl
+
+go
+wait !run()
+break.delete main
+data.list
+
+
+
+
+
+
+
+
+
+
+
+
+
