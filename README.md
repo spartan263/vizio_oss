@@ -20,6 +20,10 @@ Additionally, Vizio is using a customized version of u-boot with complete GPLv2 
 
 On the Linux side the licensing headers are all clearly stated as GPLv2 with the exception of bcm4329 (previously published under GPL'd Android branches), DirectFB/gfx drivers ("MediaTek proprietary" but otherwise complete), and perhaps a few minor drivers.
 
-Real-world devices known to have these chips:
+Real-world devices known to have these chips:  
  Vizio E500i-B1 LED Smart TV  
  (Unknown models) / Hisense
+
+Also see:  
+ Rooting MediaTek Based Linux Smart TV / xda-developers  
+ http://forum.xda-developers.com/android/software/rooting-mediatek-based-linux-smart-tv-t3150281
