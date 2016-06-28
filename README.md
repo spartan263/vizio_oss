@@ -26,4 +26,7 @@ Real-world devices known to have these chips:
 
 Also see:  
  Rooting MediaTek Based Linux Smart TV / xda-developers  
- http://forum.xda-developers.com/android/software/rooting-mediatek-based-linux-smart-tv-t3150281
+ http://forum.xda-developers.com/android/software/rooting-mediatek-based-linux-smart-tv-t3150281  
+
+ GCC Toolchain for Vizio Smart TVs based on MediaTek MT53xx/MT588x  
+ https://github.com/spartan263/vizio_oss-toolchain
